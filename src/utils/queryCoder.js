@@ -1,5 +1,4 @@
 export default (queryObj = {}) => {
-  console.log(queryObj);
   let query = '?';
   const options = [];
   for (const key in queryObj) {

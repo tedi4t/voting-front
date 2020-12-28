@@ -11,7 +11,7 @@ export default () => {
           height: "300px"
         }}
       >
-        <img src = {logo} className = "h-100"/>
+        <img src = {logo} className = "h-100" alt="logo"/>
       </div>
     </div>
   )

@@ -33,7 +33,7 @@ export default () => {
           </li>
           <li className = "nav-item px-4">
             <Link to = "/petition" className = "nav-link">
-              <i class="fas fa-plus pr-1"></i>
+              <i className="fas fa-plus pr-1"></i>
               <span>
                 Нова Петиція
               </span>

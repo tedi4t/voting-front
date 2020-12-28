@@ -3,6 +3,7 @@ import React, { Fragment } from "react";
 export default ({ location }) => {
   const isLoginPage = location.pathname === '/login';
   const signText = isLoginPage ? "Вхід" : "Реєстрація";
+
   return (
     <div className = "py-5 container">
       <div className = "row">
