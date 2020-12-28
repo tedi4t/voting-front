@@ -4,6 +4,34 @@ export default ({ location }) => {
   const isLoginPage = location.pathname === '/login';
   const signText = isLoginPage ? "Вхід" : "Реєстрація";
 
+  const regions = [
+  'Автономна Республіка Крим',
+  'Вінницька область',
+  'Волинська область',
+  'Дніпровська область',
+  'Донецька область',
+  'Житомирська область',
+  'Закарпатська область',
+  'Запорізька область',
+  'Івано-Франківська область',
+  'Київська область',
+  'Кіровоградська область',
+  'Луганська область',
+  'Львівська область',
+  'Миколаївська область',
+  'Одеська область',
+  'Полтавська область',
+  'Рівненська область',
+  'Сумська область',
+  'Тернопільська область',
+  'Харківська область',
+  'Херсонська область',
+  'Хмельницька область',
+  'Черкаська область',
+  'Чернівецька область',
+  'Чернігівська область',
+  ]
+
   return (
     <div className = "py-5 container">
       <div className = "row">
@@ -28,6 +56,26 @@ export default ({ location }) => {
                     placeholder = "Ім'я"  
                   />
                 </div>
+                <div className = "form-group w-50 float-left pr-2">
+                  <input 
+                    type = "date" 
+                    className = "form-control form-control-lg"
+                  />
+                </div>
+                <div className = "form-group w-50 float-left pl-2">
+                  <select className = "form-control form-control-lg">
+                    <option disabled>Виберіть стать</option>
+                    <option value = "male">Чоловіча</option>
+                    <option value = "female">Жіноча</option>
+                  </select>
+                </div>
+                <select className = "form-group form-control form-control-lg">
+                  {
+                    regions.map((regionName, key) => (
+                      <option value = {key} key = {key}>{regionName}</option>
+                    ))
+                  }
+                </select>
               </Fragment>
             )}
             <input 
