@@ -1,8 +1,11 @@
-import React, { Fragment, useState } from "react";
+import React, { Fragment, useEffect, useState } from "react";
+import useFetch from '../../contexts/useFetch';
 
 export default ({ location }) => {
   const isLoginPage = location.pathname === '/login';
   const signText = isLoginPage ? "Вхід" : "Реєстрація";
+
+  const [{response, isLoading, error}, doFetch] = useFetch();
 
   const [name, setName] = useState('');
   const [surname, setSurname] = useState('');
@@ -11,39 +14,46 @@ export default ({ location }) => {
   const [district_id, setDistrict_id] = useState('0');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [repeatPassord, setRepeatPassword] = useState('');
 
   const regions = [
-  'Автономна Республіка Крим',
-  'Вінницька область',
-  'Волинська область',
-  'Дніпровська область',
-  'Донецька область',
-  'Житомирська область',
-  'Закарпатська область',
-  'Запорізька область',
-  'Івано-Франківська область',
-  'Київська область',
-  'Кіровоградська область',
-  'Луганська область',
-  'Львівська область',
-  'Миколаївська область',
-  'Одеська область',
-  'Полтавська область',
-  'Рівненська область',
-  'Сумська область',
-  'Тернопільська область',
-  'Харківська область',
-  'Херсонська область',
-  'Хмельницька область',
-  'Черкаська область',
-  'Чернівецька область',
-  'Чернігівська область',
+    'Автономна Республіка Крим',
+    'Вінницька область',
+    'Волинська область',
+    'Дніпровська область',
+    'Донецька область',
+    'Житомирська область',
+    'Закарпатська область',
+    'Запорізька область',
+    'Івано-Франківська область',
+    'Київська область',
+    'Кіровоградська область',
+    'Луганська область',
+    'Львівська область',
+    'Миколаївська область',
+    'Одеська область',
+    'Полтавська область',
+    'Рівненська область',
+    'Сумська область',
+    'Тернопільська область',
+    'Харківська область',
+    'Херсонська область',
+    'Хмельницька область',
+    'Черкаська область',
+    'Чернівецька область',
+    'Чернігівська область',
   ];
 
   const handleSubmit = event => {
     event.preventDefault();
-    
+
+    doFetch('/user/register', {
+      method: 'post',
+      queryFields: {
+        name, surname, birthday_date, gender,
+        district_id, email, password, 
+        status: -1
+      }
+    })
   }
 
   return (
@@ -53,6 +63,13 @@ export default ({ location }) => {
           <h1 className = "font-weight-light pt-3 pb-5">
             {signText}
           </h1>
+          {error && (
+            <div className = "mb-3">
+              <span className = "text-danger font-weight-bold">
+                {error}
+              </span>
+            </div>
+          )}
           <form onSubmit = {handleSubmit}> 
             {!isLoginPage && (
               <Fragment>
@@ -114,14 +131,6 @@ export default ({ location }) => {
               placeholder = "Пароль"
               onChange = {e => setPassword(e.target.value)}
             />
-            {!isLoginPage && (
-              <input 
-                className = "form-group form-control form-control-lg"
-                type = "password"
-                placeholder = "Повторіть пароль"
-                onChange = {e => setRepeatPassword(e.target.value)}
-              />
-            )}
             <button className = "btn btn-lg btn-warning btn-block text-white">
               {signText}
             </button>

@@ -20,18 +20,17 @@ export default () => {
   useEffect(() => {
     if (!isLoading) return;
 
-    const fullUrl = baseUrl + url + queryCoder(options.data);
+    const fullUrl = baseUrl + url + queryCoder(options.queryFields);
 
     axios(fullUrl, options)
       .then(res => {
-        console.log({response, error, isLoading});
-        setResponse(res);
         setIsLoading(false);
+        setResponse(res);
         setError(null);
       })
       .catch(err => {
-        setError(err);
         setIsLoading(false);
+        setError(err.response.data);
       })
   }, [isLoading, options, error, response, url]);
 
