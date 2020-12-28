@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
+import { CookiesProvider } from "react-cookie";
 import {
   BrowserRouter as Router,
 } from "react-router-dom";
@@ -12,8 +13,10 @@ function App () {
   return (
     <div>
       <Router>
-        <TopBar />
-        <Routes />
+        <CookiesProvider>
+          <TopBar />
+          <Routes />
+        </CookiesProvider>
       </Router>
     </div>
   );

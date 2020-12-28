@@ -25,7 +25,7 @@ export default () => {
     axios(fullUrl, options)
       .then(res => {
         setIsLoading(false);
-        setResponse(res);
+        setResponse(res.data);
         setError(null);
       })
       .catch(err => {
