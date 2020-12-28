@@ -49,12 +49,17 @@ export default ({ location }) => {
     if (!response) return;
     const token = response.token;
     setCookie('token', token);
-  }, [response])
+  }, [response]);
+
+  useEffect(() => {
+    console.log({ response, error, isLoading });
+  }, [response, error, isLoading]);
 
   const handleSubmit = event => {
     event.preventDefault();
 
-    doFetch('/user/register', {
+    const url = isLoginPage ? '/user/login' : '/user/register';
+    doFetch(url, {
       method: 'post',
       queryFields: {
         name, surname, birthday_date, gender,
