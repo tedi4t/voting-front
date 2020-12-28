@@ -1,8 +1,17 @@
-import React, { Fragment } from "react";
+import React, { Fragment, useState } from "react";
 
 export default ({ location }) => {
   const isLoginPage = location.pathname === '/login';
   const signText = isLoginPage ? "Вхід" : "Реєстрація";
+
+  const [name, setName] = useState('');
+  const [surname, setSurname] = useState('');
+  const [birthday_date, setBirthday_date] = useState('');
+  const [gender, setGender] = useState('male');
+  const [district_id, setDistrict_id] = useState('0');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [repeatPassord, setRepeatPassword] = useState('');
 
   const regions = [
   'Автономна Республіка Крим',
@@ -30,7 +39,12 @@ export default ({ location }) => {
   'Черкаська область',
   'Чернівецька область',
   'Чернігівська область',
-  ]
+  ];
+
+  const handleSubmit = event => {
+    event.preventDefault();
+    
+  }
 
   return (
     <div className = "py-5 container">
@@ -39,7 +53,7 @@ export default ({ location }) => {
           <h1 className = "font-weight-light pt-3 pb-5">
             {signText}
           </h1>
-          <form>
+          <form onSubmit = {handleSubmit}> 
             {!isLoginPage && (
               <Fragment>
                 <div className = "form-group w-50 float-left pr-2">
@@ -47,29 +61,39 @@ export default ({ location }) => {
                     className = "form-control form-control-lg"
                     type = "text"
                     placeholder = "Прізвище"  
+                    onChange = {e => setSurname(e.target.value)}
                   />
                 </div>
                 <div className = "form-group w-50 float-left pl-2">
                   <input
                     className = "form-control form-control-lg"
                     type = "text"
-                    placeholder = "Ім'я"  
+                    placeholder = "Ім'я"
+                    onChange = {e => setName(e.target.value)}
                   />
                 </div>
                 <div className = "form-group w-50 float-left pr-2">
                   <input 
                     type = "date" 
                     className = "form-control form-control-lg"
+                    onChange = {e => setBirthday_date(e.target.value)}
                   />
                 </div>
                 <div className = "form-group w-50 float-left pl-2">
-                  <select className = "form-control form-control-lg">
-                    <option disabled>Виберіть стать</option>
+                  <select
+                    className = "form-control form-control-lg"
+                    onChange = {e => setGender(e.target.value)}
+                    defaultValue = "male"
+                  >
                     <option value = "male">Чоловіча</option>
                     <option value = "female">Жіноча</option>
                   </select>
                 </div>
-                <select className = "form-group form-control form-control-lg">
+                <select 
+                  className = "form-group form-control form-control-lg"
+                  onChange = {e => setDistrict_id(e.target.value)}  
+                  defaultValue = "0"
+                >
                   {
                     regions.map((regionName, key) => (
                       <option value = {key} key = {key}>{regionName}</option>
@@ -81,18 +105,21 @@ export default ({ location }) => {
             <input 
               className = "form-group form-control form-control-lg"
               type = "email"
-              placeholder = "Email"  
+              placeholder = "Email" 
+              onChange = {e => setEmail(e.target.value)} 
             />
             <input 
               className = "form-group form-control form-control-lg"
               type = "password"
-              placeholder = "Пароль"  
+              placeholder = "Пароль"
+              onChange = {e => setPassword(e.target.value)}
             />
             {!isLoginPage && (
               <input 
                 className = "form-group form-control form-control-lg"
                 type = "password"
-                placeholder = "Повторіть пароль"  
+                placeholder = "Повторіть пароль"
+                onChange = {e => setRepeatPassword(e.target.value)}
               />
             )}
             <button className = "btn btn-lg btn-warning btn-block text-white">
