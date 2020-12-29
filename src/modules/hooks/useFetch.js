@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { useCallback } from 'react';
 import { useState, useEffect } from 'react';
 import queryCoder from '../../utils/queryCoder';
 
@@ -11,11 +12,11 @@ export default () => {
   const [ options, setOptions ] = useState(null);
   const [ url, setUrl ] = useState('');
 
-  const doFetch = (url = '', options = {}) => {
+  const doFetch = useCallback((url = '', options = {}) => {
     setUrl(url)
     setOptions(options);
     setIsLoading(true);
-  }
+  }, [])
 
   useEffect(() => {
     if (!isLoading) return;

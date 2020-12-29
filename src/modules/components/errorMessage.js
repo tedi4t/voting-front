@@ -1,13 +1,11 @@
-export default error => {
+import React from "react";
+
+export default ({ error }) => {
   return (
-    <div>
-      <ul>
-        {error.map(err => (
-          <li className = "text-danger font-weight-bold">
-            {err}
-          </li>
-        ))}
-      </ul>
+    <div className = "mb-3">
+      <span className = "text-danger font-weight-bold">
+        { error || '' }
+      </span>
     </div>
   )
 }

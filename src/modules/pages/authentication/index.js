@@ -1,6 +1,8 @@
 import React, { Fragment, useEffect, useState } from "react";
 import useFetch from '../../hooks/useFetch';
 import { useCookies } from "react-cookie";
+import ErrorMessage from '../../components/errorMessage';
+import LoadingMessage from '../../components/loadingMessage';
 
 export default ({ location }) => {
   const isLoginPage = location.pathname === '/login';
@@ -49,7 +51,7 @@ export default ({ location }) => {
     if (!response) return;
     const token = response.token;
     setCookie('token', token);
-  }, [response, setCookie]);
+  }, [response, setCookie, isLoginPage]);
 
   const handleSubmit = event => {
     event.preventDefault();
@@ -68,16 +70,15 @@ export default ({ location }) => {
   return (
     <div className = "py-5 container">
       <div className = "row">
-        <div className = "col-md-10 offset-md-1 col-lg-6 offset-lg-3 text-center">
+        <div className = "col-md-10 offset-md-1 col-lg-6 offset-lg-3 text-center position-static">
           <h1 className = "font-weight-light pt-3 pb-5">
             {signText}
           </h1>
+          {isLoading && (
+            <LoadingMessage />
+          )}
           {error && (
-            <div className = "mb-3">
-              <span className = "text-danger font-weight-bold">
-                {error}
-              </span>
-            </div>
+            <ErrorMessage error = { error } />
           )}
           <form onSubmit = {handleSubmit}> 
             {!isLoginPage && (
@@ -140,7 +141,7 @@ export default ({ location }) => {
               placeholder = "Пароль"
               onChange = {e => setPassword(e.target.value)}
             />
-            <button className = "btn btn-lg btn-warning btn-block text-white">
+            <button disabled = { isLoading } className = "btn btn-lg btn-warning btn-block text-white">
               {signText}
             </button>
           </form>
