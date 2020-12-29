@@ -5,6 +5,8 @@ import { CookiesProvider } from "react-cookie";
 import {
   BrowserRouter as Router,
 } from "react-router-dom";
+import { UserProvider } from './modules/contexts/user';
+import UserChecker from './modules/components/userChecker';
 
 import TopBar from "./modules/components/topBar";
 import Routes from "./modules/routes";
@@ -12,12 +14,16 @@ import Routes from "./modules/routes";
 function App () {
   return (
     <div>
-      <Router>
+      <UserProvider>
         <CookiesProvider>
-          <TopBar />
-          <Routes />
+          <UserChecker>
+            <Router>
+                <TopBar />
+                <Routes />
+            </Router>
+          </UserChecker>
         </CookiesProvider>
-      </Router>
+      </UserProvider>
     </div>
   );
 }

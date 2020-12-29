@@ -1,12 +1,12 @@
 import React, { Fragment, useEffect, useState } from "react";
-import useFetch from '../../contexts/useFetch';
+import useFetch from '../../hooks/useFetch';
 import { useCookies } from "react-cookie";
 
 export default ({ location }) => {
   const isLoginPage = location.pathname === '/login';
   const signText = isLoginPage ? "Вхід" : "Реєстрація";
 
-  const [cookies, setCookie] = useCookies(['token']);
+  const [cookie, setCookie] = useCookies(['token']);
   const [{response, isLoading, error}, doFetch] = useFetch();
 
   const [name, setName] = useState('');
@@ -50,10 +50,6 @@ export default ({ location }) => {
     const token = response.token;
     setCookie('token', token);
   }, [response]);
-
-  useEffect(() => {
-    console.log({ response, error, isLoading });
-  }, [response, error, isLoading]);
 
   const handleSubmit = event => {
     event.preventDefault();
