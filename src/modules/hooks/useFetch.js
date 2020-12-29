@@ -3,17 +3,15 @@ import { useCallback } from 'react';
 import { useState, useEffect } from 'react';
 import queryCoder from '../../utils/queryCoder';
 
-export default () => {
+export default url => {
   const baseUrl = 'https://voting--system.herokuapp.com';
 
   const [ response, setResponse ] = useState('');
   const [ isLoading, setIsLoading ] = useState(false);
   const [ error, setError ] = useState(null);
   const [ options, setOptions ] = useState(null);
-  const [ url, setUrl ] = useState('');
 
-  const doFetch = useCallback((url = '', options = {}) => {
-    setUrl(url)
+  const doFetch = useCallback((options = {}) => {
     setOptions(options);
     setIsLoading(true);
   }, [])

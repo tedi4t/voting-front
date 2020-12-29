@@ -6,17 +6,21 @@ import useFetch from "../hooks/useFetch";
 export default ({ children }) => {
   const [, dispatch] = useContext(userContext);
   const [cookie] = useCookies();
-  const [{ response }, doFetch] = useFetch();
+  const token = cookie.token;
+  const [{ response }, doFetch] = useFetch(`/user/token`);
 
   useEffect(() => {
-    const token = cookie.token;
     if (!token) {
       dispatch({
         type: 'SET_UNAUTHORIZED'
       })
       return;
     }
-    doFetch(`/user/token/${token}`);
+    doFetch({
+      queryFields: {
+        token
+      }
+    });
     dispatch({
       type: 'SET_ISLOADING'
     })

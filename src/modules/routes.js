@@ -5,7 +5,7 @@ import {
 
 import HomePage from "./pages/homePage";
 import Authentication from "./pages/authentication";
-import VotingList from "./pages/petitionList";
+import VotingList from "./pages/votingList";
 import PetitionList from "./pages/petitionList";
 
 export default () => {
@@ -14,8 +14,8 @@ export default () => {
       <Route path = "/" component = {HomePage} exact/>
       <Route path = "/login" component = {Authentication}/>
       <Route path = "/register" component = {Authentication}/>
-      <Route path = "/petition" component = {PetitionList} exact/>
-      <Route path = "/voting" component = {VotingList} exact/>
+      <Route path = "/petition" component = {PetitionList}/>
+      <Route path = "/voting" component = {VotingList}/>
     </Switch>
   )
 }

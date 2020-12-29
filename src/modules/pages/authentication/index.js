@@ -7,9 +7,10 @@ import LoadingMessage from '../../components/loadingMessage';
 export default ({ location }) => {
   const isLoginPage = location.pathname === '/login';
   const signText = isLoginPage ? "Вхід" : "Реєстрація";
+  const url = isLoginPage ? '/user/login' : '/user/register';
 
   const [, setCookie] = useCookies(['token']);
-  const [{response, isLoading, error}, doFetch] = useFetch();
+  const [{response, isLoading, error}, doFetch] = useFetch(url);
 
   const [name, setName] = useState('');
   const [surname, setSurname] = useState('');
@@ -56,8 +57,7 @@ export default ({ location }) => {
   const handleSubmit = event => {
     event.preventDefault();
 
-    const url = isLoginPage ? '/user/login' : '/user/register';
-    doFetch(url, {
+    doFetch({
       method: 'post',
       queryFields: {
         name, surname, birthday_date, gender,
