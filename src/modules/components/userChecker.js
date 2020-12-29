@@ -10,9 +10,16 @@ export default ({ children }) => {
   const [{ response, isLoading, error }, doFetch] = useFetch();
 
   useEffect(() => {
-    if (!cookie.token) return;
+    if (!cookie.token) {
+      dispatch({
+        type: 'SET_UNAUTHORIZED'
+      })
+    }
     const token = cookie.token;
     doFetch(`/user/token/${token}`);
+    dispatch({
+      type: 'SET_ISLOADING'
+    })
   }, [cookie]);
 
   useEffect(() => {
