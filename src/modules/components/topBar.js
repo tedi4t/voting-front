@@ -4,7 +4,7 @@ import { Link, NavLink } from "react-router-dom";
 import { userContext } from '../contexts/user';
 
 export default () => {
-  const [userState, dispatch] = useContext(userContext);
+  const [userState] = useContext(userContext);
 
   const { isLoggedIn } = userState;
 

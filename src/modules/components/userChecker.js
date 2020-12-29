@@ -1,13 +1,12 @@
-'use strict';
-import React, { useContext, useEffect } from "react";
+import { useContext, useEffect } from "react";
 import { userContext } from "../contexts/user";
 import { useCookies } from "react-cookie";
 import useFetch from "../hooks/useFetch";
 
 export default ({ children }) => {
-  const [userState, dispatch] = useContext(userContext);
-  const [cookie, setCookie] = useCookies();
-  const [{ response, isLoading, error }, doFetch] = useFetch();
+  const [, dispatch] = useContext(userContext);
+  const [cookie] = useCookies();
+  const [{ response }, doFetch] = useFetch();
 
   useEffect(() => {
     const token = cookie.token;
@@ -21,7 +20,7 @@ export default ({ children }) => {
     dispatch({
       type: 'SET_ISLOADING'
     })
-  }, [cookie]);
+  }, [cookie, dispatch, doFetch]);
 
   useEffect(() => {
     if (!response) return;
@@ -31,7 +30,7 @@ export default ({ children }) => {
         user: response
       }
     });
-  }, [response]);
+  }, [response, dispatch]);
 
   return children;
 }

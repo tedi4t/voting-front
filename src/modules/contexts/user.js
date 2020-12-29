@@ -1,5 +1,3 @@
-'use strict';
-
 import React, { createContext, useReducer } from 'react';
 
 const reducer = (state, action) => {

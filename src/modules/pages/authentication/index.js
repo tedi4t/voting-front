@@ -6,7 +6,7 @@ export default ({ location }) => {
   const isLoginPage = location.pathname === '/login';
   const signText = isLoginPage ? "Вхід" : "Реєстрація";
 
-  const [cookie, setCookie] = useCookies(['token']);
+  const [, setCookie] = useCookies(['token']);
   const [{response, isLoading, error}, doFetch] = useFetch();
 
   const [name, setName] = useState('');
@@ -49,7 +49,7 @@ export default ({ location }) => {
     if (!response) return;
     const token = response.token;
     setCookie('token', token);
-  }, [response]);
+  }, [response, setCookie]);
 
   const handleSubmit = event => {
     event.preventDefault();
