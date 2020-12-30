@@ -3,6 +3,7 @@ import useFetch from '../../hooks/useFetch';
 import { useCookies } from "react-cookie";
 import ErrorMessage from '../../components/errorMessage';
 import LoadingMessage from '../../components/loadingMessage';
+import { Redirect } from "react-router-dom";
 
 export default ({ location }) => {
   const isLoginPage = location.pathname === '/login';
@@ -19,6 +20,7 @@ export default ({ location }) => {
   const [district_id, setDistrict_id] = useState('0');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [successfulSubmit, setSuccessfulSubmit] = useState(false);
 
   const regions = [
     'Автономна Республіка Крим',
@@ -52,6 +54,7 @@ export default ({ location }) => {
     if (!response) return;
     const token = response.token;
     setCookie('token', token);
+    setSuccessfulSubmit(true);
   }, [response, setCookie, isLoginPage]);
 
   const handleSubmit = event => {
@@ -65,6 +68,12 @@ export default ({ location }) => {
         status: -1
       }
     })
+  }
+
+  if (successfulSubmit) {
+    return (
+      <Redirect to = "/" />
+    )
   }
 
   return (
