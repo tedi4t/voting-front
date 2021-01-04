@@ -5,18 +5,22 @@ import ErrorMessage from '../../components/errorMessage';
 import LoadingMessage from '../../components/loadingMessage';
 import StartEndDate from "../../components/startEndDate";
 import { userContext } from "../../contexts/user";
+import queryDecoder from "../../../utils/queryDecoder";
 
-export default () => {
+export default ({ location }) => {
   const [{ response, isLoading, error}, doFetch] = useFetch('/petition/all');
   const [userState] = useContext(userContext);
   const [searchText, setSearchText] = useState('');
+
+  const queryObj = queryDecoder(location.search);
+  const page = queryObj.page || 1;
 
   const status =  userState.user && userState.user.status;
 
   useEffect(() => {
     doFetch({ queryFields: {
       limit: 10,
-      offset: 0,
+      offset: (page - 1) * 10,
     } });
   }, [doFetch]);
 
