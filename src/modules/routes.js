@@ -7,6 +7,7 @@ import HomePage from "./pages/homePage";
 import Authentication from "./pages/authentication";
 import VotingList from "./pages/votingList";
 import PetitionList from "./pages/petitionList";
+import Voting from "./pages/voting"
 
 export default () => {
   return (
@@ -15,7 +16,8 @@ export default () => {
       <Route path = "/login" component = {Authentication}/>
       <Route path = "/register" component = {Authentication}/>
       <Route path = "/petition" component = {PetitionList}/>
-      <Route path = "/voting" component = {VotingList}/>
+      <Route path = "/voting" component = {VotingList} exact/>
+      <Route path = "/voting/:voting_id" component = {Voting} exact/>
     </Switch>
   )
 }
