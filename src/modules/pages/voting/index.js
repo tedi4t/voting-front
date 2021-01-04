@@ -65,8 +65,6 @@ export default ({ match }) => {
   const totalVotes = responseResults ? 
     responseResults.reduce((acc, result) => acc + Number(result.votes), 0) : 0;
 
-  console.log({ variantVoted, responseResults });
-
   useEffect(() => {
     doFetchVoteRes({
       queryFields: {
