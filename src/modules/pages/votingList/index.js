@@ -62,9 +62,9 @@ export default () => {
       {error && <ErrorMessage error = { error } />}
       {isLoading && <LoadingMessage />}
       {response && (
-        response.map(voting => (
+        response.map((voting, indx) => (
           <div
-            key = {voting.voting_id}
+            key = {indx}
             className = "border-bottom"
           >
             <Link
@@ -95,7 +95,11 @@ export default () => {
                 className = "mt-3"
                 style = {{ fontSize: '1.1rem' }}
               >
-                {voting.description}
+                {
+                  voting.description.length > 100 ?
+                  <span>{voting.description.split('').splice(0, 100).join('')}...</span> :
+                  <span>{voting.description}</span>
+                }
               </div>
             </Link>
           </div>
