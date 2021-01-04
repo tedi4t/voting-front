@@ -1,6 +1,6 @@
 import axios from 'axios';
-import { useCallback } from 'react';
-import { useState, useEffect } from 'react';
+import { useCallback, useState, useEffect } from 'react';
+import { useCookies } from "react-cookie";
 import queryCoder from '../../utils/queryCoder';
 
 export default url => {
@@ -10,6 +10,8 @@ export default url => {
   const [ isLoading, setIsLoading ] = useState(false);
   const [ error, setError ] = useState(null);
   const [ options, setOptions ] = useState(null);
+  const [cookie] = useCookies(['token']);
+  const token = cookie.token;
 
   const doFetch = useCallback((options = {}) => {
     setOptions(options);
@@ -19,6 +21,8 @@ export default url => {
   useEffect(() => {
     if (!isLoading) return;
 
+    if (options.queryFields)
+      options.queryFields.token = token;
     const fullUrl = baseUrl + url + queryCoder(options.queryFields);
 
     axios(fullUrl, options)
@@ -31,7 +35,7 @@ export default url => {
         setIsLoading(false);
         setError(err.response.data);
       })
-  }, [isLoading, options, error, response, url]);
+  }, [isLoading, options, error, response, token, url]);
 
   return [{response, error, isLoading}, doFetch];
 }
