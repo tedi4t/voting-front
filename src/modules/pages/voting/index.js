@@ -223,8 +223,7 @@ export default ({ match }) => {
                         <div 
                           className = { 
                             `progress-bar 
-                            ${ result.variant_id === variantVoted ? 'bg-danger' : 'bg-warning'} 
-                            text-dark` 
+                            ${ result.variant_id === variantVoted ? 'bg-danger' : 'bg-warning text-dark'}` 
                           } 
                           role = "progressbar" 
                           aria-valuenow = "0" 

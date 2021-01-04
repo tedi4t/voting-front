@@ -22,7 +22,7 @@ export default ({ location }) => {
       limit: 10,
       offset: (page - 1) * 10,
     } });
-  }, [doFetch]);
+  }, [doFetch, page]);
 
   const handleSearchForm = () => {
     doFetch({
