@@ -6,9 +6,11 @@ import LoadingMessage from '../../components/loadingMessage';
 import StartEndDate from "../../components/startEndDate";
 import { userContext } from "../../contexts/user";
 import queryDecoder from "../../../utils/queryDecoder";
+import { Fragment } from "react";
 
 export default ({ location }) => {
-  const [{ response, isLoading, error}, doFetch] = useFetch('/petition/all');
+  const [url, setUrl] = useState('/petition/all');
+  const [{ response, isLoading, error}, doFetch] = useFetch(url);
   const [userState] = useContext(userContext);
   const [searchText, setSearchText] = useState('');
 
@@ -46,7 +48,7 @@ export default ({ location }) => {
           Додати нове голосування
         </button>
       )}
-      <div className = "mt-3">
+      <div className = "mt-3 clearfix">
         <input 
           type = "text"
           className = "form-group form-control w-75 float-left "
@@ -66,48 +68,80 @@ export default ({ location }) => {
       {error && <ErrorMessage error = { error } />}
       {isLoading && <LoadingMessage />}
       {response && (
-        response.map(petition => (
-          <div
-            key = {petition.petition_id}
-            className = "border-bottom"
+        <Fragment>
+          <div 
+            className = "row mt-4"
+            style = {{
+              fontSize: "1.2rem",
+            }}  
           >
-            <Link
-              to = {`/petition/${petition.petition_id}`}
-              className = "py-4 px-4"
-              style = {{ 
-                color: 'black', 
-                textDecoration: 'none' 
-              }}
-            >
-              <h3 
-                className = "display-4 mb-1" 
-                style = {{ fontSize: '2rem' }}
-              >
-                {petition.name}
-              </h3>
-              <div 
-              className = "text-muted"
-              style = {{ fontSize: '0.8rem' }}
-              >
-                <i className="fas fa-clock mr-2"></i>
-                <StartEndDate 
-                  start_date = {petition.start_date} 
-                  end_date = {petition.end_date}
-                />
-              </div>
-              <div
-                className = "mt-3"
-                style = {{ fontSize: '1.1rem' }}
-              >
-                {
-                  petition.description.length > 100 ?
-                  <span>{petition.description.split('').splice(0, 100).join('')}...</span> :
-                  <span>{petition.description}</span>
+            <div className = "col-md-6 col-sm-12 text-center border-right">
+              <span 
+                className = "border-bottom border-warning"
+                onClick = {
+                  () => setUrl('/petition/all')
                 }
-              </div>
-            </Link>
+              >
+                Усі петиції
+              </span>
+            </div>
+            <div className = "col-md-6 col-sm-12 text-center border-right">
+              <span 
+                className = "border-bottom border-warning"
+                onClick = {
+                  () => setUrl('/petition/current')
+                }
+              >
+                Активні петиції
+              </span>
+            </div>
           </div>
-        ))
+          {
+            response.map(petition => (
+              <div
+                key = {petition.petition_id}
+                className = "border-bottom"
+              >
+                <Link
+                  to = {`/petition/${petition.petition_id}`}
+                  className = "py-4 px-4"
+                  style = {{ 
+                    color: 'black', 
+                    textDecoration: 'none' 
+                  }}
+                >
+                  <h3 
+                    className = "display-4 mb-1" 
+                    style = {{ fontSize: '2rem' }}
+                  >
+                    {petition.name}
+                  </h3>
+                  <div 
+                  className = "text-muted"
+                  style = {{ fontSize: '0.8rem' }}
+                  >
+                    <i className="fas fa-clock mr-2"></i>
+                    <StartEndDate 
+                      start_date = {petition.start_date} 
+                      end_date = {petition.end_date}
+                    />
+                  </div>
+                  <div
+                    className = "mt-3"
+                    style = {{ fontSize: '1.1rem' }}
+                  >
+                    {
+                      petition.description.length > 100 ?
+                      <span>{petition.description.split('').splice(0, 100).join('')}...</span> :
+                      <span>{petition.description}</span>
+                    }
+                  </div>
+                </Link>
+              </div>
+            ))
+          }
+        </Fragment>
+        
       )}
     </div>
   )
