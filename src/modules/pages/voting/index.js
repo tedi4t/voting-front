@@ -5,6 +5,8 @@ import StartEndDate from "../../components/startEndDate";
 import LoadingMessage from "../../components/loadingMessage";
 import ErrorMessage from "../../components/errorMessage";
 import { userContext } from "../../contexts/user";
+import Map from "./components/map";
+import Results from "./components/results";
 
 export default ({ match }) => {
   const voting_id = match.params.voting_id;
@@ -34,11 +36,17 @@ export default ({ match }) => {
     response: responseResults, 
     isLoading: isLoadingResults
   }, doFetchResults] = useFetch(`/voting/${voting_id}/resultGeneral`);
-  
+  const [{
+    response: responseResultsAllDistricts, 
+    isLoading: isLoadingResultsAllDistricts
+  }, doFetchResultsAllDistricts] 
+    = useFetch(`/voting/${voting_id}/resultAllDistricts`);
+
   useEffect(() => {
     doFetchVoting();
     doFetchVariants();
     doFetchResults();
+    doFetchResultsAllDistricts();
   }, [doFetchVariants, doFetchVoting, doFetchResults]);
 
   useEffect(() => {
@@ -58,12 +66,11 @@ export default ({ match }) => {
   } = responseVoting[0] || {};
 
   const response = responseVoting && responseVariants;
-  const isLoading = isLoadingVoting || isLoadingVariants || isLoadingVote || isLoadingVoteRes || isLoadingResults;
+  const isLoading = isLoadingVoting || isLoadingVariants || isLoadingVote || 
+    isLoadingVoteRes || isLoadingResults || isLoadingResultsAllDistricts;
   const error = errorVoting ? errorVoting : errorVariants;
   const voteRes = responseVoteRes[0] || {};
   const variantVoted = voteRes.variant_id;
-  const totalVotes = responseResults ? 
-    responseResults.reduce((acc, result) => acc + Number(result.votes), 0) : 0;
 
   useEffect(() => {
     doFetchVoteRes({
@@ -148,7 +155,9 @@ export default ({ match }) => {
               }
             </div>
             <h3 className = "font-weight-light mb-4">
-              Електронний бюлетень
+              {
+                variantVoted ? 'Результати голосування' : 'Електронний бюлетень'
+              }
             </h3>
             {
               !variantVoted && (
@@ -198,48 +207,15 @@ export default ({ match }) => {
                 </Fragment>
               )
             }
-            
             <div className = "mb-5">
               {
-                responseResults && variantVoted && (
-                  responseResults.map(result => (
-                    <div 
-                      className = "row mb-2" 
-                      key = { result.name }
-                      style = {{
-                        fontSize: "1.25rem"
-                      }}
-                    >
-                      <div className = "col-md-4">
-                        { result.name }
-                      </div>
-                      <div className = "col-md-8">
-                      <div 
-                        className = "progress"
-                        style = {{
-                          height: "100%"
-                        }}
-                      >
-                        <div 
-                          className = { 
-                            `progress-bar 
-                            ${ result.variant_id === variantVoted ? 'bg-danger' : 'bg-warning text-dark'}` 
-                          } 
-                          role = "progressbar" 
-                          aria-valuenow = "0" 
-                          aria-valuemin = "0" 
-                          aria-valuemax = "100"
-                          style = {{
-                            width: `${ result.votes / totalVotes * 100 }%`,
-                            height: "100%"
-                          }}
-                        >
-                          { (result.votes / totalVotes * 100).toFixed(2) }%
-                        </div>
-                      </div>
-                      </div>
+                responseResults && variantVoted && responseResultsAllDistricts && (
+                  <Fragment>
+                    <Results results = {responseResults} variantVoted = {variantVoted} />                  
+                    <div className = "d-grid text-center mt-5">
+                      <Map data = {responseResultsAllDistricts}/>
                     </div>
-                  ))
+                  </Fragment>
                 )
               }
             </div>
