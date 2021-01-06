@@ -24,7 +24,7 @@ export default ({ location }) => {
       limit: 10,
       offset: (page - 1) * 10,
     } });
-  }, [doFetch, page]);
+  }, [doFetch, page, url]);
 
   const handleSearchForm = () => {
     doFetch({
