@@ -11,3 +11,28 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+.MuiPaginationItem-page.Mui-selected,
+.MuiPaginationItem-page.Mui-selected:hover, 
+.MuiPaginationItem-page.Mui-selected.Mui-focusVisible {
+  background: rgba(255, 193, 7, 0.1)!important;
+  border: 1px solid #ffc107!important;
+  color: #ffbf00;
+}
+
+.MuiPaginationItem-outlined {
+  border: 1px solid #ffc107!important;
+}
+
+.MuiPagination-ul {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(40px, 1fr));
+  justify-content: center;
+  grid-gap: 7px;
+  list-style: none;
+}
+
+nav {
+  display: grid;
+  align-items: center;
+}

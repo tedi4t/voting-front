@@ -7,6 +7,7 @@ import StartEndDate from "../../components/startEndDate";
 import { userContext } from "../../contexts/user";
 import queryDecoder from "../../../utils/queryDecoder";
 import { Fragment } from "react";
+import Pagination from "../../components/pagination";
 
 export default ({ location }) => {
   const [url, setUrl] = useState('/voting/all');
@@ -16,6 +17,9 @@ export default ({ location }) => {
 
   const queryObj = queryDecoder(location.search);
   const page = queryObj.page || 1;
+  const limit = 10;
+  const totalRecords = (response && response.count) || 1;
+  const totalPages = Math.ceil(totalRecords / limit)
 
   const status =  userState.user && userState.user.status;
 
@@ -97,7 +101,7 @@ export default ({ location }) => {
             </div>
           </div>
           {
-            response.map((voting, indx) => (
+            response.result.map((voting, indx) => (
               <div
                 key = {indx}
                 className = "border-bottom"
@@ -140,6 +144,11 @@ export default ({ location }) => {
               </div>
             ))
           }
+          <div
+            className = "my-5 d-grid align-items-center"
+          >
+            <Pagination location = {location} totalPages = {totalPages}/>
+          </div>
         </Fragment>
       )}
     </div>
