@@ -1,39 +1,40 @@
 import React from "react";
-import makeTwoDigit from "../../utils/makeTwoDigit";
+import dateDecoder from "../../utils/dateDecoder";
 
 export default ({ start_date, end_date }) => {
-  if (typeof start_date !== Date)
-    start_date = new Date(start_date);
-  if (!typeof end_date !== Date)
-    end_date = new Date(end_date);
-  const beginDay = start_date.getDate();
-  const endDay = end_date.getDate();
-  if (beginDay === endDay) {
-    const day = makeTwoDigit(start_date.getDate());
-    const month = makeTwoDigit(start_date.getMonth());
-    const year = start_date.getFullYear();
-    const beginHour = makeTwoDigit(start_date.getHours());
-    const beginMinute = makeTwoDigit(start_date.getMinutes());
-    const endHour = makeTwoDigit(end_date.getHours());
-    const endMinute = makeTwoDigit(end_date.getMinutes());
+  let startDateDecoded = dateDecoder(start_date);
+  let endDateDecoded = dateDecoder(end_date);
+
+  const { 
+    day: startDay, 
+    month: startMonth, 
+    year: startYear, 
+    hour: startHour, 
+    minute: startMinute 
+  } = startDateDecoded;
+  const { 
+    day: endDay, 
+    month: endMonth, 
+    year: endYear, 
+    hour: endHour, 
+    minute: endMinute 
+  } = endDateDecoded;
+
+  if (
+      startDay === endDay && 
+      startMonth === endMonth &&
+      startYear === endYear
+  ) {
     return (
       <span>
-        {day}.{month}.{year} {beginHour}:{beginMinute} - {endHour}:{endMinute}
+        {startDay}.{startMonth}.{startYear} {startHour}:{startMinute} - {endHour}:{endMinute}
       </span>
     )
   }
 
-  const beginMonth = makeTwoDigit(start_date.getMonth());
-  const beginYear = start_date.getFullYear();
-  const beginHour = makeTwoDigit(start_date.getHours());
-  const beginMinute = makeTwoDigit(start_date.getMinutes());
-  const endMonth = makeTwoDigit(end_date.getMonth());
-  const endYear = end_date.getFullYear();
-  const endHour = makeTwoDigit(end_date.getHours());
-  const endMinute = makeTwoDigit(end_date.getMinutes());
   return (
     <span>
-      {beginDay}.{beginMonth}.{beginYear} {beginHour}:{beginMinute} -&nbsp;
+      {startDay}.{startMonth}.{startYear} {startHour}:{startMinute} -&nbsp;
       {endDay}.{endMonth}.{endYear} {endHour}:{endMinute}
     </span>
   )  

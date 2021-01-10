@@ -1,2 +1,2 @@
 export default numb => 
-  numb.toString().length === 2 ? numb : `0${numb}`
+  numb.toString().length >= 2 ? numb : `0${numb}`
