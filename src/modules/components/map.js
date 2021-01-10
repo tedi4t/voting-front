@@ -1,11 +1,10 @@
 import React, { useEffect, useState } from "react";
 import Data from "./data";
-import Results from "./results";
-import useFetch from "../../../hooks/useFetch";
-import LoadingMessage from "../../../components/loadingMessage";
+import useFetch from "../hooks/useFetch";
+import LoadingMessage from "./loadingMessage";
 import { Fragment } from "react";
 
-export default ({ data }) => {
+export default ({ data, DisplayDataModule }) => {
   const hoverStates = Array.from({length: 28}, () => useState(false));
   const fillColor = '#ffc107';
   const [{
@@ -13,8 +12,6 @@ export default ({ data }) => {
     isLoading: isLoadingAllDistricts
   }, doFetchAllDistricts] 
     = useFetch(`/districts`);
-
-  console.log(responseAllDistricts);
 
   const [mouseLocation, setMouseLocation] = useState({ x: 0, y: 0 });
   const [isDistrictClicked, setIsDistrictClicked] = useState(false);
@@ -56,7 +53,7 @@ export default ({ data }) => {
                 >
                   { responseAllDistricts[selectedDistrictId].name }
                 </div>
-                <Results 
+                <DisplayDataModule 
                   results = {data[selectedDistrictId] || []}
                 />
               </Fragment>

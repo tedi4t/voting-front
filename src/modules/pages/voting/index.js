@@ -5,7 +5,7 @@ import StartEndDate from "../../components/startEndDate";
 import LoadingMessage from "../../components/loadingMessage";
 import ErrorMessage from "../../components/errorMessage";
 import { userContext } from "../../contexts/user";
-import Map from "./components/map";
+import Map from "../../components/map";
 import Results from "./components/results";
 
 export default ({ match }) => {
@@ -213,7 +213,10 @@ export default ({ match }) => {
                   <Fragment>
                     <Results results = {responseResults} variantVoted = {variantVoted} />                  
                     <div className = "d-grid text-center mt-5">
-                      <Map data = {responseResultsAllDistricts}/>
+                      <Map 
+                        data = {responseResultsAllDistricts}
+                        DisplayDataModule = {Results}
+                      />
                     </div>
                   </Fragment>
                 )
