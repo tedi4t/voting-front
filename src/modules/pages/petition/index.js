@@ -4,19 +4,50 @@ import StartEndDate from "../../components/startEndDate";
 import LoadingMessage from "../../components/loadingMessage";
 import ErrorMessage from "../../components/errorMessage";
 import { userContext } from "../../contexts/user";
+import ResultsCircle from "./components/resultsCircle";
 
 export default ({ match }) => {
   const petition_id = match.params.petition_id;
+  const [userState] = useContext(userContext);
+  const user_id = userState.user && userState.user.user_id;
 
   const [{
     response: responsePetition, 
     error: errorPetition, 
     isLoading: isLoadingPetition
   }, doFetchPetition] = useFetch(`/petition/${petition_id}`);
-  
+  const [{
+    response: responseResults, 
+    isLoading: isLoadingResults
+  }, doFetchResults] = useFetch(`/petition/${petition_id}/resultGeneral`);
+  const [{
+    error: errorVote,
+    isLoading: isLoadingVote
+  }, doFetchVote] = useFetch(`/petition/${petition_id}/vote`);
+  const [{
+    response: responseVoteRes, 
+    isLoading: isLoadingVoteRes
+  }, doFetchVoteRes] = useFetch(`/petition/${petition_id}/voteResult`);
+
+  const totalVotes = (responseResults[0] && responseResults[0].votes) || 0;
+  const votesNeeded = 200;
+  const degree = (totalVotes / votesNeeded) * 360;
+  const insideText = `${totalVotes} голосів з ${votesNeeded} необхідних`;
+  const voted = responseVoteRes.length > 0;
+
   useEffect(() => {
     doFetchPetition();
+    doFetchResults();
   }, [doFetchPetition]);
+
+  useEffect(() => {
+    if (!user_id) return;
+    doFetchVoteRes({
+      queryFields: {
+        user_id
+      }
+    });
+  }, [doFetchVoteRes, user_id, isLoadingVote])
 
   const {
     name: petitionName,
@@ -24,10 +55,20 @@ export default ({ match }) => {
     start_date, end_date
   } = responsePetition[0] || {};
 
-  const response = responsePetition;
-  const isLoading = isLoadingPetition;
-  const error = errorPetition;
+  const response = responsePetition && responseResults && responseVoteRes;
+  const isLoading = isLoadingPetition || isLoadingResults || isLoadingVote || isLoadingVoteRes;
+  const error = errorPetition || errorVote;
   
+  const handleVote = (e) => {
+    e.preventDefault();
+    doFetchVote({
+      method: "post",
+      queryFields: {
+        user_id
+      }
+    })
+  }
+
   return (
     <div className = "container">
       {
@@ -47,13 +88,59 @@ export default ({ match }) => {
                 />
               </div>
             <hr />
-            <div 
-            className = "mt-4"
-            style = {{
-              fontSize: "1.5rem"
-            }}
-            >
-              { petitionDescription }
+            <div className = "row">
+              <div 
+                className = "mt-4 col-md-9"
+                style = {{
+                  fontSize: "1.5rem"
+                }}
+              >
+                { petitionDescription }
+              </div>
+              <div className = "col-md-3 mt-4 border border-muted p-4">
+                <div className = "text-center p-3">
+                  <ResultsCircle 
+                    text = {insideText} 
+                    degree = {degree}
+                  />
+                </div>
+                <div
+                  className = "mt-3 mb-2"
+                  style = {{
+                    fontSize: "1.2rem"
+                  }}
+                >
+                  Статус:
+                </div>
+                <div 
+                  className = "my-2"
+                  style = {{
+                    fontSize: "1.2rem"
+                  }}
+                >
+                  Залишилося 30 днів
+                </div>
+                {
+                  voted && (
+                    <div>
+                      <i className = "fas fa-check"></i> &nbsp;
+                      Ви вже проголосували
+                    </div>
+                  )
+                }
+                {
+                  !voted && (
+                    <form onSubmit = {handleVote}>
+                      <button
+                        className = "btn btn-warning btn-block btn-lg mt-4"
+                        type = "submit"
+                      >
+                        Проголосувати
+                      </button>
+                    </form>
+                  )
+                }
+              </div>
             </div>
           </Fragment>
         )
