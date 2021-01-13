@@ -5,6 +5,8 @@ import LoadingMessage from "../../components/loadingMessage";
 import ErrorMessage from "../../components/errorMessage";
 import { userContext } from "../../contexts/user";
 import ResultsCircle from "./components/resultsCircle";
+import Map from "../../components/map";
+import ResultsProgressPetition from "../../components/resultsProgressPetition";
 
 export default ({ match }) => {
   const petition_id = match.params.petition_id;
@@ -28,6 +30,11 @@ export default ({ match }) => {
     response: responseVoteRes, 
     isLoading: isLoadingVoteRes
   }, doFetchVoteRes] = useFetch(`/petition/${petition_id}/voteResult`);
+  const [{
+    response: responseResultsAllDistricts, 
+    isLoading: isLoadingResultsAllDistricts
+  }, doFetchResultsAllDistricts] 
+    = useFetch(`/petition/${petition_id}/resultAllDistricts`);
 
   const totalVotes = (responseResults[0] && responseResults[0].votes) || 0;
   const votesNeeded = 200;
@@ -38,6 +45,7 @@ export default ({ match }) => {
   useEffect(() => {
     doFetchPetition();
     doFetchResults();
+    doFetchResultsAllDistricts();
   }, [doFetchPetition]);
 
   useEffect(() => {
@@ -56,7 +64,9 @@ export default ({ match }) => {
   } = responsePetition[0] || {};
 
   const response = responsePetition && responseResults && responseVoteRes;
-  const isLoading = isLoadingPetition || isLoadingResults || isLoadingVote || isLoadingVoteRes;
+  const isLoading = 
+    isLoadingPetition || isLoadingResults || isLoadingVote || 
+    isLoadingVoteRes || isLoadingResultsAllDistricts;
   const error = errorPetition || errorVote;
   
   const handleVote = (e) => {
@@ -141,6 +151,12 @@ export default ({ match }) => {
                   )
                 }
               </div>
+            </div>
+            <div className = "d-grid text-center my-5">
+              <Map 
+                data = {responseResultsAllDistricts}
+                DisplayDataModule = { ResultsProgressPetition }
+              />
             </div>
           </Fragment>
         )
