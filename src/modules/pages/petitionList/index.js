@@ -8,6 +8,7 @@ import { userContext } from "../../contexts/user";
 import queryDecoder from "../../../utils/queryDecoder";
 import { Fragment } from "react";
 import Pagination from "../../components/pagination";
+import ResultsProgressPetition from "../../components/resultsProgressPetition";
 
 export default ({ location }) => {
   const [url, setUrl] = useState('/petition/all');
@@ -114,31 +115,38 @@ export default ({ location }) => {
                     textDecoration: 'none' 
                   }}
                 >
-                  <h3 
-                    className = "display-4 mb-1" 
-                    style = {{ fontSize: '2rem' }}
-                  >
-                    {petition.name}
-                  </h3>
-                  <div 
-                  className = "text-muted"
-                  style = {{ fontSize: '0.8rem' }}
-                  >
-                    <i className="fas fa-clock mr-2"></i>
-                    <StartEndDate 
-                      start_date = {petition.start_date} 
-                      end_date = {petition.end_date}
-                    />
-                  </div>
-                  <div
-                    className = "mt-3"
-                    style = {{ fontSize: '1.1rem' }}
-                  >
-                    {
-                      petition.description.length > 100 ?
-                      <span>{petition.description.split('').splice(0, 100).join('')}...</span> :
-                      <span>{petition.description}</span>
-                    }
+                  <div id = "petition-info" className = "row">
+                    <div className = "col-md-9">
+                      <h3 
+                        className = "display-4 mb-1" 
+                        style = {{ fontSize: '2rem' }}
+                      >
+                        {petition.name}
+                      </h3>
+                      <div 
+                      className = "text-muted"
+                      style = {{ fontSize: '0.8rem' }}
+                      >
+                        <i className="fas fa-clock mr-2"></i>
+                        <StartEndDate 
+                          start_date = {petition.start_date} 
+                          end_date = {petition.end_date}
+                        />
+                      </div>
+                      <div
+                        className = "mt-3"
+                        style = {{ fontSize: '1.1rem' }}
+                      >
+                        {
+                          petition.description.length > 100 ?
+                          <span>{petition.description.split('').splice(0, 100).join('')}...</span> :
+                          <span>{petition.description}</span>
+                        }
+                      </div>
+                    </div>
+                    <div className = "col-md-3">
+                      <ResultsProgressPetition results = {[petition]}/>
+                    </div>
                   </div>
                 </Link>
               </div>

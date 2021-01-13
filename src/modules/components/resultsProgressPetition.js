@@ -36,7 +36,7 @@ export default({ results }) => {
       <div 
         class="progress mb-2"
         style = {{
-          height: "5px"
+          height: "3px"
         }}
       >
         <div 
