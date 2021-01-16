@@ -34,13 +34,13 @@ export default({ results }) => {
         </span>
       </div>
       <div 
-        class="progress mb-2"
+        className="progress mb-2"
         style = {{
           height: "3px"
         }}
       >
         <div 
-          class="progress-bar bg-warning" 
+          className="progress-bar bg-warning" 
           role="progressbar" 
           aria-valuenow="0" 
           aria-valuemin="0" 

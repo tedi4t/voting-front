@@ -15,8 +15,6 @@ export default ({ location, totalPages }) => {
     setCurrentPage(page);
   }
 
-  console.log({ pageIsSelected, currentPage });
-
   useEffect(() => {
     setPageIsSelected(false);
   }, [currentPage])

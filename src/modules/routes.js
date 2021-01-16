@@ -9,6 +9,7 @@ import VotingList from "./pages/votingList";
 import PetitionList from "./pages/petitionList";
 import Voting from "./pages/voting";
 import Petition from "./pages/petition";
+import NewPetition from "./pages/newPetition";
 
 export default () => {
   return (
@@ -17,6 +18,7 @@ export default () => {
       <Route path = "/login" component = {Authentication}/>
       <Route path = "/register" component = {Authentication}/>
       <Route path = "/petition" component = {PetitionList} exact/>
+      <Route path = "/petition/new" component = {NewPetition} exact/>
       <Route path = "/petition/:petition_id" component = {Petition} exact/>
       <Route path = "/voting" component = {VotingList} exact/>
       <Route path = "/voting/:voting_id" component = {Voting} exact/>
