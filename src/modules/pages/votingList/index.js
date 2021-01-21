@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
-import { Link } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 import useFetch from '../../hooks/useFetch';
 import ErrorMessage from '../../components/errorMessage';
 import LoadingMessage from '../../components/loadingMessage';
@@ -14,6 +14,7 @@ export default ({ location }) => {
   const [{ response, isLoading, error}, doFetch] = useFetch(url);
   const [userState] = useContext(userContext);
   const [searchText, setSearchText] = useState('');
+  const [createVotingBtnClicked, SetCreateVotingBtnClicked] = useState(false);
 
   const queryObj = queryDecoder(location.search);
   const page = queryObj.page || 1;
@@ -39,11 +40,22 @@ export default ({ location }) => {
     }});
   }
 
+  const handleNewPetitionClick = () => {
+    SetCreateVotingBtnClicked(true);
+  }
+
+  if (createVotingBtnClicked) {
+    return (
+      <Redirect to = '/voting/new' />
+    )
+  }
+
   return (
     <div className = "container">
       {status === 1 && (
         <button 
           className = "btn btn-lg btn-secondary mt-2"
+          onClick = {handleNewPetitionClick}
           style = {{
             borderRadius: "50px",
           }}

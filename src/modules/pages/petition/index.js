@@ -55,6 +55,8 @@ export default ({ match }) => {
         user_id
       }
     });
+    doFetchResults();
+    doFetchResultsAllDistricts();
   }, [doFetchVoteRes, user_id, isLoadingVote])
 
   const {
