@@ -11,6 +11,7 @@ import Voting from "./pages/voting";
 import Petition from "./pages/petition";
 import NewPetition from "./pages/newPetition";
 import NewVoting from "./pages/newVoting";
+import MyProfile from "./pages/myProfile";
 
 export default () => {
   return (
@@ -24,6 +25,7 @@ export default () => {
       <Route path = "/voting" component = {VotingList} exact/>
       <Route path = "/voting/new" component = {NewVoting} exact/>
       <Route path = "/voting/:voting_id" component = {Voting} exact/>
+      <Route path = "/myProfile" component = {MyProfile} exact/>
     </Switch>
   )
 }

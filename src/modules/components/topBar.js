@@ -6,7 +6,8 @@ import { userContext } from '../contexts/user';
 export default () => {
   const [userState] = useContext(userContext);
 
-  const { isLoggedIn } = userState;
+  const { isLoggedIn, user } = userState;
+  console.log({user});
 
   return (
     <nav className = "navbar navbar-light bg-light">
@@ -27,16 +28,21 @@ export default () => {
               Головна Сторінка
             </NavLink>
           </li>
-          {isLoggedIn && (
+          {isLoggedIn && user && (
             <Fragment>
               <li className = "nav-item px-4 border-right">
                 <NavLink to = "/petition" className = "nav-link">
                   Петиції
                 </NavLink>
               </li>
-              <li className = "nav-item px-4">
+              <li className = "nav-item px-4 border-right">
                 <NavLink to = "/voting" className = "nav-link">
                   Голосування
+                </NavLink>
+              </li>
+              <li className = "nav-item px-4">
+                <NavLink to = "/myProfile" className = "nav-link">
+                  { user.surname } { user.name }
                 </NavLink>
               </li>
             </Fragment>

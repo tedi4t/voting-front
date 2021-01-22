@@ -11,7 +11,6 @@ export default ({ location }) => {
   const [{ response, isLoading, error}, doFetch] = useFetch('/petition/create');
   const [userState] = useContext(userContext);
   const user_id = userState && userState.user && userState.user.user_id;
-  console.log(user_id);
 
   const handleFormSubmit = e => {
     e.preventDefault();
