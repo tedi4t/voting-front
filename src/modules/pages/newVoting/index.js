@@ -1,6 +1,7 @@
 import React, { useContext, useEffect, useState } from "react";
 import { Redirect } from 'react-router-dom';
 import { userContext } from '../../contexts/user';
+import resizeImage from '../../../utils/resizeImage';
 import useFetch from '../../hooks/useFetch';
 import ErrorMessage from '../../components/errorMessage';
 import LoadingMessage from '../../components/loadingMessage';
@@ -14,6 +15,11 @@ export default ({ location }) => {
   const [{ response, isLoading, error}, doFetch] = useFetch('/voting/create');
   const [userState] = useContext(userContext);
   const user_id = userState && userState.user && userState.user.user_id;
+
+  const resizer = (variant, image) => {
+    const cb = (val) => variant.base64 = val;
+    resizeImage(image, cb);
+  }
 
   const getVariantHTML = (variant) => (
     <div>
@@ -47,6 +53,15 @@ export default ({ location }) => {
             variant.description = e.target.value;
           }}
         />
+        <input 
+          type="file" 
+          className = "mt-2"
+          onChange = { e => {
+            const reader = new FileReader();
+            reader.onload = e => resizer(variant, e.target.result);
+            reader.readAsDataURL(e.target.files[0]);
+          }}
+        />
       </div>
     </div>
   )
@@ -59,7 +74,8 @@ export default ({ location }) => {
   const addVariant = () => {
     const initialValue = {
       name: '',
-      description: ''
+      description: '',
+      base64: ''
     }
 
     if(variants.length === 0) {
@@ -96,15 +112,20 @@ export default ({ location }) => {
       variants.pop();
     }
 
+    console.log(variants);
+
     doFetch({
       method: 'post',
       queryFields: {
         author_user_id: user_id,
         name,
         description,
-        variants: JSON.stringify(variants),
+        // variants: JSON.stringify(variants),
         start_date: new Date(startDate),
         end_date: new Date(endDate)
+      },
+      data: {
+        variants
       }
     })
   }
