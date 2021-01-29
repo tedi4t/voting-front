@@ -57,6 +57,7 @@ export default ({ match }) => {
       }
     })
     doFetchResults();
+    doFetchResultsAllDistricts();
   }, [isLoadingVote, doFetchVoteRes, doFetchResults, user_id, voting_id])
 
   const {
@@ -135,11 +136,15 @@ export default ({ match }) => {
                       className = "col-lg-4 col-md-6 col-sm-12 pb-4"
                     >
                       <div className = "card">
-                        <img 
-                          className = "card-img-top" 
-                          src = { Ze } 
-                          alt = "Candidate" 
-                        />
+                        {
+                          variant.image && (
+                          <img 
+                            className = "card-img-top" 
+                            src = { `data:image/jpeg;base64,${variant.image}` } 
+                            alt = "Candidate" 
+                          />
+                        )
+                        }
                         <div className = "card-body">
                           <h5 className = "card-title">
                             { variant.name }

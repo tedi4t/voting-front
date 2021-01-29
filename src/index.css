@@ -37,3 +37,8 @@ nav {
   display: grid;
   align-items: center;
 }
+
+/* .input-file-button:hover {
+  background: #ccc;
+  color: white;
+} */
