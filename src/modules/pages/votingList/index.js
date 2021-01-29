@@ -9,7 +9,7 @@ import queryDecoder from "../../../utils/queryDecoder";
 import { Fragment } from "react";
 import Pagination from "../../components/pagination";
 
-export default ({ location }) => {
+const VotingList = ({ location }) => {
   const [url, setUrl] = useState('/voting/all');
   const [{ response, isLoading, error}, doFetch] = useFetch(url);
   const [userState] = useContext(userContext);
@@ -166,3 +166,5 @@ export default ({ location }) => {
     </div>
   )
 }
+
+export default VotingList;

@@ -3,9 +3,9 @@ import { useCallback, useState, useEffect } from 'react';
 import { useCookies } from "react-cookie";
 import queryCoder from '../../utils/queryCoder';
 
-export default url => {
-  const baseUrl = 'https://voting--system.herokuapp.com';
-  // const baseUrl = 'http://localhost:5000';
+const UseFetch = url => {
+  // const baseUrl = 'https://voting--system.herokuapp.com';
+  const baseUrl = 'http://localhost:5000';
 
   const [ response, setResponse ] = useState('');
   const [ isLoading, setIsLoading ] = useState(false);
@@ -40,3 +40,5 @@ export default url => {
 
   return [{response, error, isLoading}, doFetch];
 }
+
+export default UseFetch;

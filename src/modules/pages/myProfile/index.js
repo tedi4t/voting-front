@@ -8,8 +8,8 @@ import ErrorMessage from "../../components/errorMessage";
 import dateStrinfify from "../../../utils/dateStringify";
 import { Redirect } from "react-router-dom";
 
-export default () => {
-  const [cookie, setCookie, removeCookie] = useCookies(['token']);
+const MyProfile = () => {
+  const [, , removeCookie] = useCookies(['token']);
   const [userState] = useContext(userContext);
   const [tokenRemoved, setTokenRemoved] = useState(false);
   const user = userState && userState.user;
@@ -20,7 +20,7 @@ export default () => {
 
   useEffect(() => {
     doFetch();
-  }, []);
+  }, [doFetch]);
 
   const handleLogoutClick = (e) => {
     e.preventDefault();
@@ -41,7 +41,7 @@ export default () => {
         response && user && (
           <div className = "row">
             <div className = "col-6 offset-3 col-md-4 offset-md-4 col-lg-6 offset-lg-0 px-5 px-md-4 px-lg-5">
-              <img src = {UserIcon} className = "w-100"/>
+              <img src = {UserIcon} className = "w-100" alt = "user icon"/>
             </div>
             <div 
               className = "col-12 col-lg-6"
@@ -90,3 +90,5 @@ export default () => {
     </div>
   )
 }
+
+export default MyProfile;

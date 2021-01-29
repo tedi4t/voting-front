@@ -1,4 +1,4 @@
-export default (queryObj = {}) => {
+const queryCoder = (queryObj = {}) => {
   let query = '?';
   const options = [];
   for (const key in queryObj) {
@@ -8,3 +8,5 @@ export default (queryObj = {}) => {
   
   return query;
 }
+
+export default queryCoder;

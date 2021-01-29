@@ -1,5 +1,4 @@
 import React, { useContext, useEffect, useState } from "react";
-import { Redirect } from 'react-router-dom';
 import { userContext } from '../../contexts/user';
 import resizeImage from '../../../utils/resizeImage';
 import useFetch from '../../hooks/useFetch';
@@ -7,12 +6,12 @@ import ErrorMessage from '../../components/errorMessage';
 import LoadingMessage from '../../components/loadingMessage';
 import { Fragment } from "react";
 
-export default ({ location }) => {
+const NewVoting = () => {
   const [name, setName] = useState('');
   const [description, setDescription] = useState('');
   const [startDate, setStartDate] = useState('');
   const [endDate, setEndDate] = useState('');
-  const [{ response, isLoading, error}, doFetch] = useFetch('/voting/create');
+  const [{ isLoading, error}, doFetch] = useFetch('/voting/create');
   const [userState] = useContext(userContext);
   const user_id = userState && userState.user && userState.user.user_id;
 
@@ -227,3 +226,5 @@ export default ({ location }) => {
     </div>
   )
 }
+
+export default NewVoting;

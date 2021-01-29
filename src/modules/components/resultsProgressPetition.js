@@ -1,6 +1,6 @@
 import React from "react";
 
-export default({ results }) => {
+const resultsProgressPetition = ({ results }) => {
   if (!results.length) {
     return (
       <div
@@ -54,3 +54,5 @@ export default({ results }) => {
     </div>
   )
 }
+
+export default resultsProgressPetition;

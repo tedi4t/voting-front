@@ -1,4 +1,4 @@
-export default (base64Str, cb) => {
+const resizeImage = (base64Str, cb) => {
   var img = new Image();
   img.src = base64Str;
   let resizedImage = '';
@@ -27,3 +27,5 @@ export default (base64Str, cb) => {
     cb(resizedImage);
   }
 }
+
+export default resizeImage;

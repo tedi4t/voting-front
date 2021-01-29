@@ -1,6 +1,6 @@
 import React from "react";
 
-export default ({ mouseLocation, content }) => {
+const data = ({ mouseLocation, content }) => {
   return (
     <div 
         id = "data"
@@ -22,3 +22,5 @@ export default ({ mouseLocation, content }) => {
       </div>
   )
 }
+
+export default data;

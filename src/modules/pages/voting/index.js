@@ -1,6 +1,5 @@
 import React, { useEffect, Fragment, useState, useContext } from "react";
 import useFetch from "../../hooks/useFetch";
-import Ze from "./images/ze.jpg"
 import StartEndDate from "../../components/startEndDate";
 import LoadingMessage from "../../components/loadingMessage";
 import ErrorMessage from "../../components/errorMessage";
@@ -8,7 +7,7 @@ import { userContext } from "../../contexts/user";
 import Map from "../../components/map";
 import Results from "./components/results";
 
-export default ({ match }) => {
+const Voting = ({ match }) => {
   const voting_id = match.params.voting_id;
   const [variant_id, setVariant_id] = useState('');
   const [userState] = useContext(userContext);
@@ -47,7 +46,7 @@ export default ({ match }) => {
     doFetchVariants();
     doFetchResults();
     doFetchResultsAllDistricts();
-  }, [doFetchVariants, doFetchVoting, doFetchResults]);
+  }, [doFetchVariants, doFetchVoting, doFetchResults, doFetchResultsAllDistricts]);
 
   useEffect(() => {
     doFetchVoteRes({
@@ -58,7 +57,14 @@ export default ({ match }) => {
     })
     doFetchResults();
     doFetchResultsAllDistricts();
-  }, [isLoadingVote, doFetchVoteRes, doFetchResults, user_id, voting_id])
+  }, [
+      isLoadingVote, 
+      doFetchVoteRes, 
+      doFetchResults, 
+      user_id, 
+      voting_id, 
+      doFetchResultsAllDistricts
+    ])
 
   const {
     name: votingName,
@@ -243,3 +249,5 @@ export default ({ match }) => {
     </div>
   )
 }
+
+export default Voting;

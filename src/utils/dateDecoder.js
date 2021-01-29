@@ -9,7 +9,7 @@ const changeTimezone = date => {
   return date;
 }
 
-export default date => {
+const dateDecoder = date => {
   if (!typeof date !== Date)
     date = new Date(date);
 
@@ -31,3 +31,5 @@ export default date => {
 
   return dateDecoded;
 }
+
+export default dateDecoder;

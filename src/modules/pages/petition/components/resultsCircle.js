@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import { Fragment } from "react";
 
-export default ({ degree, text }) => {
+const ResultsCircle = ({ degree, text }) => {
   const mainCircle = useRef(null);
   const [size, setSize] = useState(0);
 
@@ -94,3 +94,5 @@ export default ({ degree, text }) => {
     </div>
   )
 }
+
+export default ResultsCircle;

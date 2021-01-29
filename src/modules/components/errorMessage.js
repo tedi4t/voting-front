@@ -1,6 +1,6 @@
 import React from "react";
 
-export default ({ error }) => {
+const errorMessage = ({ error }) => {
   return (
     <div className = "mb-3">
       <span className = "text-danger font-weight-bold">
@@ -9,3 +9,5 @@ export default ({ error }) => {
     </div>
   )
 }
+
+export default errorMessage;

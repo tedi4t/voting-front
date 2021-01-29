@@ -13,7 +13,7 @@ import NewPetition from "./pages/newPetition";
 import NewVoting from "./pages/newVoting";
 import MyProfile from "./pages/myProfile";
 
-export default () => {
+const Routes = () => {
   return (
     <Switch>
       <Route path = "/" component = {HomePage} exact/>
@@ -29,3 +29,5 @@ export default () => {
     </Switch>
   )
 }
+
+export default Routes;

@@ -1,14 +1,13 @@
-import React, { useContext, useEffect, useState } from "react";
-import { Redirect } from 'react-router-dom';
+import React, { useContext, useState } from "react";
 import { userContext } from '../../contexts/user';
 import useFetch from '../../hooks/useFetch';
 import ErrorMessage from '../../components/errorMessage';
 import LoadingMessage from '../../components/loadingMessage';
 
-export default ({ location }) => {
+const NewPetition = () => {
   const [name, setName] = useState('');
   const [description, setDescription] = useState('');
-  const [{ response, isLoading, error}, doFetch] = useFetch('/petition/create');
+  const [{ isLoading, error}, doFetch] = useFetch('/petition/create');
   const [userState] = useContext(userContext);
   const user_id = userState && userState.user && userState.user.user_id;
 
@@ -70,3 +69,5 @@ export default ({ location }) => {
     </div>
   )
 }
+
+export default NewPetition;

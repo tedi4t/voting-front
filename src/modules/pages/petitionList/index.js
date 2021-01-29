@@ -10,7 +10,7 @@ import { Fragment } from "react";
 import Pagination from "../../components/pagination";
 import ResultsProgressPetition from "../../components/resultsProgressPetition";
 
-export default ({ location }) => {
+const PetitionList = ({ location }) => {
   const [url, setUrl] = useState('/petition/all');
   const [{ response, isLoading, error}, doFetch] = useFetch(url);
   const [userState] = useContext(userContext);
@@ -174,3 +174,5 @@ export default ({ location }) => {
     </div>
   )
 }
+
+export default PetitionList;

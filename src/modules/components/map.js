@@ -390,3 +390,5 @@ export default ({ data, DisplayDataModule }) => {
     </div>
   )
 }
+
+// export default Map;

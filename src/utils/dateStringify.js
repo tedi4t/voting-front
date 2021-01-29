@@ -1,4 +1,4 @@
-export default date => {
+const dateStringify = date => {
   if (typeof date !== Date)
     date = new Date(date);
 
@@ -8,3 +8,5 @@ export default date => {
 
   return `${day}.${month}.${year}`;
 }
+
+export default dateStringify;

@@ -1,7 +1,7 @@
 import React from "react";
 import loadingLogo from './loading.gif'
 
-export default () => {
+const loadingMessage = () => {
   return (
     <div style = {{
       zIndex: 10,
@@ -27,3 +27,5 @@ export default () => {
     </div>
   )
 }
+
+export default loadingMessage;

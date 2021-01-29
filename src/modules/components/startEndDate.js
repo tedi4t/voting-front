@@ -1,7 +1,7 @@
 import React from "react";
 import dateDecoder from "../../utils/dateDecoder";
 
-export default ({ start_date, end_date }) => {
+const startEndDate = ({ start_date, end_date }) => {
   let startDateDecoded = dateDecoder(start_date);
   let endDateDecoded = dateDecoder(end_date);
 
@@ -39,3 +39,5 @@ export default ({ start_date, end_date }) => {
     </span>
   )  
 }
+
+export default startEndDate;

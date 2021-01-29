@@ -1,7 +1,7 @@
 import React from "react";
 import logo from "./images/LabelVoting.png";
 
-export default () => {
+const homePage = () => {
   return (
     <div>
       <div 
@@ -16,3 +16,5 @@ export default () => {
     </div>
   )
 }
+
+export default homePage;

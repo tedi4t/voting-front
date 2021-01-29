@@ -3,7 +3,7 @@ import { Fragment } from "react";
 import { Link, NavLink } from "react-router-dom";
 import { userContext } from '../contexts/user';
 
-export default () => {
+const TopBar = () => {
   const [userState] = useContext(userContext);
 
   const { isLoggedIn, user } = userState;
@@ -66,3 +66,5 @@ export default () => {
     </nav>
   )
 }
+
+export default TopBar;

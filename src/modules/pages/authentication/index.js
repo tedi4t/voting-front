@@ -5,7 +5,7 @@ import ErrorMessage from '../../components/errorMessage';
 import LoadingMessage from '../../components/loadingMessage';
 import { Redirect } from "react-router-dom";
 
-export default ({ location }) => {
+const Auth = ({ location }) => {
   const isLoginPage = location.pathname === '/login';
   const signText = isLoginPage ? "Вхід" : "Реєстрація";
   const url = isLoginPage ? '/user/login' : '/user/register';
@@ -161,3 +161,5 @@ export default ({ location }) => {
     </div>
   )
 }
+
+export default Auth;

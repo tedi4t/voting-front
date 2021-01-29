@@ -1,4 +1,4 @@
-import React, { useEffect, Fragment, useState, useContext } from "react";
+import React, { useEffect, Fragment, useContext } from "react";
 import useFetch from "../../hooks/useFetch";
 import StartEndDate from "../../components/startEndDate";
 import LoadingMessage from "../../components/loadingMessage";
@@ -8,7 +8,7 @@ import ResultsCircle from "./components/resultsCircle";
 import Map from "../../components/map";
 import ResultsProgressPetition from "../../components/resultsProgressPetition";
 
-export default ({ match }) => {
+const Petition = ({ match }) => {
   const petition_id = match.params.petition_id;
   const [userState] = useContext(userContext);
   const user_id = userState.user && userState.user.user_id;
@@ -46,7 +46,7 @@ export default ({ match }) => {
     doFetchPetition();
     doFetchResults();
     doFetchResultsAllDistricts();
-  }, [doFetchPetition]);
+  }, [doFetchPetition, doFetchResults, doFetchResultsAllDistricts]);
 
   useEffect(() => {
     if (!user_id) return;
@@ -57,7 +57,13 @@ export default ({ match }) => {
     });
     doFetchResults();
     doFetchResultsAllDistricts();
-  }, [doFetchVoteRes, user_id, isLoadingVote])
+  }, [
+      doFetchVoteRes, 
+      user_id, 
+      isLoadingVote, 
+      doFetchResults, 
+      doFetchResultsAllDistricts
+    ])
 
   const {
     name: petitionName,
@@ -176,3 +182,5 @@ export default ({ match }) => {
     </div>
   )
 }
+
+export default Petition;

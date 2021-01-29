@@ -1,6 +1,6 @@
 import React from "react";
 
-export default({ results, variantVoted }) => {
+const Results = ({ results, variantVoted }) => {
   const totalVotes = results.reduce((acc, result) => acc + Number(result.votes), 0);
 
   if (!results.length) {
@@ -65,3 +65,5 @@ export default({ results, variantVoted }) => {
     ))
   )
 }
+
+export default Results;

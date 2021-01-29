@@ -3,7 +3,7 @@ import { userContext } from "../contexts/user";
 import { useCookies } from "react-cookie";
 import useFetch from "../hooks/useFetch";
 
-export default ({ children }) => {
+const UserChecker = ({ children }) => {
   const [, dispatch] = useContext(userContext);
   const [cookie] = useCookies();
   const [{ response }, doFetch] = useFetch(`/user/token`);
@@ -38,3 +38,5 @@ export default ({ children }) => {
 
   return children;
 }
+
+export default UserChecker;

@@ -4,7 +4,7 @@ import { Pagination } from '@material-ui/lab';
 import '../../index.css';
 import { Redirect } from "react-router-dom";
 
-export default ({ location, totalPages }) => {
+const PaginationElement = ({ location, totalPages }) => {
   const currentUrl = location.pathname;
   const decodedQuery = queryDecoder(location.search);
   const [currentPage, setCurrentPage] = useState(Number(decodedQuery.page) || 1);
@@ -38,3 +38,5 @@ export default ({ location, totalPages }) => {
     />
   )
 }
+
+export default PaginationElement;
