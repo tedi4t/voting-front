@@ -4,8 +4,7 @@ import { useCookies } from "react-cookie";
 import queryCoder from '../../utils/queryCoder';
 
 const UseFetch = url => {
-  // const baseUrl = 'https://voting--system.herokuapp.com';
-  const baseUrl = 'http://localhost:5000';
+  const baseUrl = 'https://voting--system.herokuapp.com';
 
   const [ response, setResponse ] = useState('');
   const [ isLoading, setIsLoading ] = useState(false);

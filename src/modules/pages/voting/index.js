@@ -143,10 +143,10 @@ const Voting = ({ match }) => {
                     >
                       <div className = "card">
                         {
-                          variant.image && (
+                          variant.base64image && (
                           <img 
                             className = "card-img-top" 
-                            src = { `data:image/jpeg;base64,${variant.image}` } 
+                            src = { variant.base64image } 
                             alt = "Candidate" 
                           />
                         )
