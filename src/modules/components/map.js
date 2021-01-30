@@ -61,15 +61,15 @@ export default ({ data, DisplayDataModule }) => {
           />
         )
       }
-      <svg baseprofile="tiny"
+      <svg baseProfile="tiny"
         fill="#7c7c7c"
         height="670"
         stroke="#ffffff"
-        stroke-linecap="round"
-        stroke-linejoin="round"
-        stroke-width="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        strokeWidth="2"
         version="1.2"
-        viewbox="0 0 1000 670"
+        viewBox="0 0 1000 670"
         width="1000"
         xmlns="http://www.w3.org/2000/svg"
         style = {{
