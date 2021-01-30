@@ -15,8 +15,6 @@ const MyProfile = () => {
   const user = userState && userState.user;
 
   const [{response, isLoading, error}, doFetch] = useFetch('/districts');
-  console.log({user});
-  console.log(response);
 
   useEffect(() => {
     doFetch();

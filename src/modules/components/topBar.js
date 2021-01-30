@@ -7,7 +7,6 @@ const TopBar = () => {
   const [userState] = useContext(userContext);
 
   const { isLoggedIn, user } = userState;
-  console.log({user});
 
   return (
     <nav className = "navbar navbar-light bg-light">

@@ -111,8 +111,6 @@ const NewVoting = () => {
       variants.pop();
     }
 
-    console.log(variants);
-
     doFetch({
       method: 'post',
       queryFields: {
