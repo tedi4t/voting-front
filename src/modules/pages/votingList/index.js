@@ -52,7 +52,7 @@ const VotingList = ({ location }) => {
 
   return (
     <div className = "container">
-      {status === 1 && (
+      {/* {status === 1 && ( */}
         <button 
           className = "btn btn-lg btn-secondary mt-2"
           onClick = {handleNewPetitionClick}
@@ -63,7 +63,7 @@ const VotingList = ({ location }) => {
           <i className = "fas fa-plus"></i> &nbsp;
           Додати нове голосування
         </button>
-      )}
+      {/* )} */}
       <div className = "mt-3 clearfix">
         <input 
           type = "text"

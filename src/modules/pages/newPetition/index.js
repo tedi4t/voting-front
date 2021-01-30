@@ -1,14 +1,16 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import { userContext } from '../../contexts/user';
 import useFetch from '../../hooks/useFetch';
 import ErrorMessage from '../../components/errorMessage';
 import LoadingMessage from '../../components/loadingMessage';
+import { Redirect } from "react-router-dom";
 
 const NewPetition = () => {
   const [name, setName] = useState('');
   const [description, setDescription] = useState('');
-  const [{ isLoading, error}, doFetch] = useFetch('/petition/create');
+  const [{ response, isLoading, error}, doFetch] = useFetch('/petition/create');
   const [userState] = useContext(userContext);
+  const [successfulSubmit, setSuccessfulSubmit] = useState(false);
   const user_id = userState && userState.user && userState.user.user_id;
 
   const handleFormSubmit = e => {
@@ -21,6 +23,17 @@ const NewPetition = () => {
       description
       }
     })
+  }
+
+  useEffect(() => {
+    if (!response) return;
+    setSuccessfulSubmit(true);
+  }, [response]);
+
+  if (successfulSubmit) {
+    return (
+      <Redirect to = "/petition" />
+    )
   }
 
   return (

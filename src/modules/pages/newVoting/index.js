@@ -5,14 +5,16 @@ import useFetch from '../../hooks/useFetch';
 import ErrorMessage from '../../components/errorMessage';
 import LoadingMessage from '../../components/loadingMessage';
 import { Fragment } from "react";
+import { Redirect } from "react-router-dom";
 
 const NewVoting = () => {
   const [name, setName] = useState('');
   const [description, setDescription] = useState('');
   const [startDate, setStartDate] = useState('');
   const [endDate, setEndDate] = useState('');
-  const [{ isLoading, error}, doFetch] = useFetch('/voting/create');
+  const [{ response, isLoading, error}, doFetch] = useFetch('/voting/create');
   const [userState] = useContext(userContext);
+  const [successfulSubmit, setSuccessfulSubmit] = useState(false);
   const user_id = userState && userState.user && userState.user.user_id;
 
   const resizer = (variant, image) => {
@@ -94,6 +96,11 @@ const NewVoting = () => {
   }
 
   useEffect(() => {
+    if (!response) return;
+    setSuccessfulSubmit(true);
+  }, [response]);
+
+  useEffect(() => {
     if (variants.length === 0)
       addVariant();
   }, [variants, addVariant])
@@ -125,6 +132,12 @@ const NewVoting = () => {
         variants
       }
     })
+  }
+
+  if (successfulSubmit) {
+    return (
+      <Redirect to = "/voting" />
+    )
   }
 
   return (
