@@ -115,49 +115,51 @@ const Petition = ({ match }) => {
               >
                 { petitionDescription }
               </div>
-              <div className = "col-md-3 mt-4 border border-muted p-4">
-                <div className = "text-center p-3">
-                  <ResultsCircle 
-                    text = {insideText} 
-                    degree = {degree}
-                  />
+              <div className = "col-md-3 mt-4">
+                <div className = "border border-muted p-4 w-100">
+                  <div className = "text-center p-3">
+                    <ResultsCircle 
+                      text = {insideText} 
+                      degree = {degree}
+                    />
+                  </div>
+                  <div
+                    className = "mt-3 mb-2"
+                    style = {{
+                      fontSize: "1.2rem"
+                    }}
+                  >
+                    Статус:
+                  </div>
+                  <div 
+                    className = "my-2"
+                    style = {{
+                      fontSize: "1.2rem"
+                    }}
+                  >
+                    Залишилося 30 днів
+                  </div>
+                  {
+                    voted && (
+                      <div>
+                        <i className = "fas fa-check"></i> &nbsp;
+                        Ви вже проголосували
+                      </div>
+                    )
+                  }
+                  {
+                    !voted && (
+                      <form onSubmit = {handleVote}>
+                        <button
+                          className = "btn btn-warning btn-block btn-lg mt-4"
+                          type = "submit"
+                        >
+                          Проголосувати
+                        </button>
+                      </form>
+                    )
+                  }
                 </div>
-                <div
-                  className = "mt-3 mb-2"
-                  style = {{
-                    fontSize: "1.2rem"
-                  }}
-                >
-                  Статус:
-                </div>
-                <div 
-                  className = "my-2"
-                  style = {{
-                    fontSize: "1.2rem"
-                  }}
-                >
-                  Залишилося 30 днів
-                </div>
-                {
-                  voted && (
-                    <div>
-                      <i className = "fas fa-check"></i> &nbsp;
-                      Ви вже проголосували
-                    </div>
-                  )
-                }
-                {
-                  !voted && (
-                    <form onSubmit = {handleVote}>
-                      <button
-                        className = "btn btn-warning btn-block btn-lg mt-4"
-                        type = "submit"
-                      >
-                        Проголосувати
-                      </button>
-                    </form>
-                  )
-                }
               </div>
             </div>
             <div className = "d-grid text-center my-5">

@@ -3,12 +3,19 @@ import { Fragment } from "react";
 
 const ResultsCircle = ({ degree, text }) => {
   const mainCircle = useRef(null);
+  const insideCircle = useRef(null);
   const [size, setSize] = useState(0);
+  const [insideSize, setInsideSize] = useState(0);
 
   useEffect(() => {
     const size = mainCircle.current ? mainCircle.current.offsetWidth : 0;
     setSize(size);
   }, [mainCircle, size])
+
+  useEffect(() => {
+    const insideSize = insideCircle.current ? insideCircle.current.offsetHeight : 0;
+    setInsideSize(insideSize);
+  }, [insideCircle, insideSize])
 
   return (
     <div 
@@ -75,18 +82,25 @@ const ResultsCircle = ({ degree, text }) => {
               </div>
 
               <div 
-                className = "border border-warning rounded-circle p-5 text-center"
+                className = "border border-warning rounded-circle"
                 id="inside-circle"
+                ref = { insideCircle }
                 style = {{
-                  display: "grid",
-                  alignItems: "center",
-                  width: "90%",
+                  width: insideSize,
                   height: "90%",
                   background: "#fff",
                   zIndex: "2"
                 }}
               >
-                { text }
+                <div 
+                  className = "w-100 h-100"
+                  style = {{
+                    display: "grid",
+                    alignItems: "center",
+                  }}
+                >
+                  { text }
+                </div>
               </div>
             </Fragment>
           )
