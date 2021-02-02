@@ -13,6 +13,15 @@ const homePage = () => {
       >
         <img src = {logo} className = "h-100" alt="logo"/>
       </div>
+
+      <div
+        className = "text-warning container text-center mt-5 font-weight-light"
+        style = {{
+          fontSize: "2rem"
+        }}  
+      >
+        Зареєструйтесь щоб продовжити
+      </div>
     </div>
   )
 }

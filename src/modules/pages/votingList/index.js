@@ -1,10 +1,11 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
+// import { useContext } from "react";
 import { Link, Redirect } from 'react-router-dom';
 import useFetch from '../../hooks/useFetch';
 import ErrorMessage from '../../components/errorMessage';
 import LoadingMessage from '../../components/loadingMessage';
 import StartEndDate from "../../components/startEndDate";
-import { userContext } from "../../contexts/user";
+// import { userContext } from "../../contexts/user";
 import queryDecoder from "../../../utils/queryDecoder";
 import { Fragment } from "react";
 import Pagination from "../../components/pagination";
@@ -12,7 +13,7 @@ import Pagination from "../../components/pagination";
 const VotingList = ({ location }) => {
   const [url, setUrl] = useState('/voting/all');
   const [{ response, isLoading, error}, doFetch] = useFetch(url);
-  const [userState] = useContext(userContext);
+  // const [userState] = useContext(userContext);
   const [searchText, setSearchText] = useState('');
   const [createVotingBtnClicked, SetCreateVotingBtnClicked] = useState(false);
 
@@ -22,7 +23,7 @@ const VotingList = ({ location }) => {
   const totalRecords = (response && response.count) || 1;
   const totalPages = Math.ceil(totalRecords / limit)
 
-  const status =  userState.user && userState.user.status;
+  // const status =  userState.user && userState.user.status;
 
   useEffect(() => {
     doFetch({ queryFields: {
