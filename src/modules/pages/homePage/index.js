@@ -1,7 +1,11 @@
-import React from "react";
+import React, { useContext } from "react";
 import logo from "./images/LabelVoting.png";
+import { userContext } from "../../contexts/user";
 
 const homePage = () => {
+  const [userState] = useContext(userContext);
+  const isLoggedIn = userState.isLoggedIn;
+
   return (
     <div>
       <div 
@@ -20,7 +24,12 @@ const homePage = () => {
           fontSize: "2rem"
         }}  
       >
-        Зареєструйтесь щоб продовжити
+        { !isLoggedIn && (
+          <p>
+            Зареєструйтесь щоб продовжити
+          </p>
+        )
+        }
       </div>
     </div>
   )
