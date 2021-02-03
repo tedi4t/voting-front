@@ -2,7 +2,7 @@ import React, { useContext } from "react";
 import logo from "./images/LabelVoting.png";
 import { userContext } from "../../contexts/user";
 
-const homePage = () => {
+const HomePage = () => {
   const [userState] = useContext(userContext);
   const isLoggedIn = userState.isLoggedIn;
 
@@ -35,4 +35,4 @@ const homePage = () => {
   )
 }
 
-export default homePage;
+export default HomePage;
